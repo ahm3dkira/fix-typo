@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" href="https://img.icons8.com/ios/50/000000/bookmark-ribbon--v1.png">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        }
+
+        main{
+            width: 100vw;
+            height: 100vh;
+        }
+        section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        input{
+            width: 158px;
+            height: 30px;
+            margin: 5px 15px;
+            padding: 5px 5px;
+        }
+
+
+        @media (min-width: 768px) {
+        }
+    </style>
+    <title>typo</title>
+</head>
+
+<body>
+    <main>
+        <section>
+            <h5>enter the text here and i will try to fix it</h5>
+            <input type="text" class="input">
+            <input type="button" value="Fix me" onclick="fix_typo()">
+            <input type="text" disabled class="ar">
+            <input type="text" disabled class="en">
+            <!-- <p>Hello</p> -->
+        </section>
+    </main>
+    <script>
+
+        function fix_typo(){
+            const res = convert(document.querySelector('.input').value);
+            document.querySelector('.ar').value=res.arabic;
+            document.querySelector('.en').value=res.english;
+        }
+        function convert(s) {
+            const _e = '`1234567890-=qwertyuiop[]asdfghjkl;\'zxcvbnm,./'
+            const _a = 'ذ1234567890-=ضصثقفغعهخحجدشسيبلاتنمكطئءؤرﻻىةوزظ'
+
+            var a_to_e = [];
+            var e_to_a = [];
+            s.split('').forEach(c => {
+                a_to_e.push(   (_a.indexOf(c)===-1)? c : _e.charAt(_a.indexOf(c))  );
+                e_to_a.push(   (_e.indexOf(c)===-1)? c : _a.charAt(_e.indexOf(c))  );
+            });
+
+            return {
+                arabic: e_to_a.join(''),
+                english: a_to_e.join('')
+            };
+        }
+    </script>
+</body>
+
+</html>
